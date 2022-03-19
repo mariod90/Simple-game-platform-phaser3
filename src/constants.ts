@@ -27,7 +27,9 @@ const Constants = {
             LAYERPLATFORM: 'Plataformas'
         },
         TILESET: 'levelstileset',
-        FINALPOSITION: 'finalposition'
+        FINALPOSITION: 'finalposition',
+        ENEMIES: 'enemies'
+
     },
     BACKGROUNDS: {
         LEVEL1: 'Brown'
@@ -47,6 +49,28 @@ const Constants = {
     },
     OBJECTS: {
         FINAL: 'final'
+    },
+    ENEMIES: {
+        BUNNY: {
+            ID: 'bunny',
+            ANIM: 'bunnyRun',
+            SPEED: 75
+        },
+        CHICKEN: {
+            ID: 'chicken',
+            ANIM: 'chickenRun',
+            SPEED: 100
+        },
+        MUSHROOM: {
+            ID: 'mushroom',
+            ANIM: 'mushroomRun',
+            SPEED: 100
+        },
+        RADISH: {
+            ID: 'radish',
+            ANIM: 'radishRun',
+            SPEED: 100
+        }
     }
 };
 

@@ -62,6 +62,24 @@ export default class Load extends Phaser.Scene {
         // Objeto final
         this.load.image(Constants.OBJECTS.FINAL, 'images/objects/final.png');
         //this.load.atlas(Constants.PLAYER.ID, '' + 'images/player/ninjafrog.png', 'images/player/ninjafrog.json');
+
+        //Enemigos
+        this.load.spritesheet(Constants.ENEMIES.BUNNY.ID, 'images/enemies/bunny.png', {
+            frameWidth: 34,
+            frameHeight: 44
+        });
+        this.load.spritesheet(Constants.ENEMIES.CHICKEN.ID, 'images/enemies/chicken.png', {
+            frameWidth: 32,
+            frameHeight: 34
+        });
+        this.load.spritesheet(Constants.ENEMIES.MUSHROOM.ID, 'images/enemies/mushroom.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+        this.load.spritesheet(Constants.ENEMIES.RADISH.ID, 'images/enemies/radish.png', {
+            frameWidth: 30,
+            frameHeight: 38
+        });
     }
 
     private createBars(): void {

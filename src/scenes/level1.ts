@@ -1,13 +1,14 @@
 import Constants from '../constants';
 import Player from '../gameobjects/player';
 import GameObject = Phaser.GameObjects.GameObject;
+import Enemies from '../gameobjects/enemies';
 
 export default class Level1 extends Phaser.Scene {
     private width: number;
     private height: number;
     private lives: number;
     private score: number;
-    private levelMap: Phaser.Tilemaps.Tilemap;
+    public levelMap: Phaser.Tilemaps.Tilemap;
     private tileSet: Phaser.Tilemaps.Tileset;
     private layerMapLevel: Phaser.Tilemaps.TilemapLayer;
     private imageBackground: Phaser.GameObjects.TileSprite;
@@ -17,6 +18,9 @@ export default class Level1 extends Phaser.Scene {
     private seconds: number;
     private timeRemaining: number;
     private timeOut: boolean;
+
+    // enemigos
+    private bunnyGroup: Enemies;
 
     constructor() {
         super(Constants.SCENES.LEVEL1);
@@ -37,7 +41,8 @@ export default class Level1 extends Phaser.Scene {
         this.timeOut = false;
     }
 
-    preload() {}
+    preload() {
+    }
 
     create() {
         // const logo = this.add.image(400, 70, 'logo1');
@@ -141,6 +146,11 @@ export default class Level1 extends Phaser.Scene {
             this.scene.stop(Constants.SCENES.HUD);
             this.scene.start(Constants.SCENES.MENU);
         });
+
+        // añade los enemigos obteniendolos de la capa de objetos del mapa
+        this.bunnyGroup = new Enemies(this, Constants.MAPS.ENEMIES, Constants.ENEMIES.BUNNY.ID, Constants.ENEMIES.BUNNY.ANIM, Constants.ENEMIES.BUNNY.SPEED);
+
+        this.physics.add.collider(this.bunnyGroup as any, this.layerMapLevel);
 
         /* this.tileSet = this.levelMap.addTilesetImage(Constants.MAPS.TILESET);
         this.layerMapLevel = this.levelMap.createLayer(Constants.MAPS.LEVEL1.LAYERPLATFORM, this.tileSet);

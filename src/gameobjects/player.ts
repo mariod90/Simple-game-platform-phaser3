@@ -1,12 +1,14 @@
 import Constants from '../constants';
 import GameObject = Phaser.GameObjects.GameObject;
+import Level1 from '../scenes/level1';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private keyWASD: any;
     private keySPACE: Phaser.Input.Keyboard.Key;
 
-    scene: Phaser.Scene;
+    scene: Level1;
+    timeWaitCollisionActive: boolean;
 
     constructor(config: any) {
         super(config.scene, config.x, config.y, config.texture);
@@ -48,6 +50,52 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-300);
             this.anims.stop();
             this.setTexture(Constants.PLAYER.ID, Constants.PLAYER.ANIMATION.JUMP);
+        }
+    }
+
+    public touchEnemy(player: Player, enemy: Phaser.Physics.Arcade.Sprite): void {
+        // hace desaparecer al enemigo si salta sobre el
+        if (player.body.velocity.y > 100 && enemy.body.touching.up && player.body.touching.down) {
+            if (!player.timeWaitCollisionActive) {
+                let posX = enemy.x;
+                let posY = enemy.y;
+                enemy.destroy();
+
+                // incrementar puntuacion
+                player.scene.score += 100;
+                player.scene.registry.set(Constants.REGISTER.SCORE, player.scene.score);
+                player.scene.events.emit(Constants.EVENTS.SCORE);
+
+                // añadir efecto de explosion con animacion que cuando se completa, desaparece
+                let explotion: Phaser.GameObjects.Sprite = player.scene.add.sprite(
+                    posX,
+                    posY,
+                    Constants.ENEMIES.EXPLOSION.ID
+                );
+                explotion.play(Constants.ENEMIES.EXPLOSION.ANIM);
+                explotion.once('animationcomplete', () => {
+                    explotion.destroy();
+                });
+            }
+        } else if (!player.timeWaitCollisionActive) {
+            // quita vidas y actualiza HUD
+            player.scene.lives--;
+            player.scene.registry.set(Constants.REGISTER.LIVES, player.scene.lives);
+            player.scene.events.emit(Constants.EVENTS.LIVES);
+
+            // activa tiempo de espera ya que al ser overlap esta colisionando constantemente
+            player.timeWaitCollisionActive = true;
+            // teñir de color rojo al jugador
+            player.tint = 0xff0000;
+
+            // evento para volver a la normalidad
+            player.scene.time.addEvent({
+                delay: 600,
+                callback: () => {
+                    player.timeWaitCollisionActive = false;
+                    player.tint = 0xffffff;
+                }
+            });
         }
     }
 }

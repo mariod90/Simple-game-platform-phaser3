@@ -1,11 +1,20 @@
 import Level1 from '../scenes/level1';
 
+interface Rect {
+    size: Coordinate;
+    offset: Coordinate;
+}
+interface Coordinate {
+    x: number;
+    y: number;
+}
+
 export default // @ts-ignore
 class Enemies extends Phaser.Physics.Arcade.Group {
     private scene: Level1;
     private speed: number;
 
-    constructor(scene: Level1, objectName: string, objectId: string, objectAnim: string, speed: number) {
+    constructor(scene: Level1, objectName: string, objectId: string, objectAnim: string, speed: number, rect: Rect) {
         super(scene.physics.world, scene);
         this.scene = scene;
         this.speed = speed;
@@ -26,10 +35,10 @@ class Enemies extends Phaser.Physics.Arcade.Group {
 
         this.children.entries.map((enemy: any) => {
             enemy.body.setCollideWorldBounds(true);
-            enemy.body.setSize(30, 30);
-            enemy.body.setOffset(0, 10);
+            enemy.body.setSize(rect.size.x, rect.size.y);
+            enemy.body.setOffset(rect.offset.x, rect.offset.y);
             enemy.play(objectAnim);
-            this.moveEnemy((Phaser.Math.Between(0, 1) ? 'left' : 'right'), enemy);
+            this.moveEnemy(Phaser.Math.Between(0, 1) ? 'left' : 'right', enemy);
         });
     }
 
@@ -45,15 +54,15 @@ class Enemies extends Phaser.Physics.Arcade.Group {
 
     public update(): void {
         this.children.entries.map((enemy: any) => {
-            if(enemy.body.velocity.x === 0){
-                this.moveEnemy((Phaser.Math.Between(0,1) ? 'left' : 'right'), enemy)
+            if (enemy.body.velocity.x === 0) {
+                this.moveEnemy(Phaser.Math.Between(0, 1) ? 'left' : 'right', enemy);
             }
-            if(enemy.body.blocked.right){
-                this.moveEnemy('left', enemy)
+            if (enemy.body.blocked.right) {
+                this.moveEnemy('left', enemy);
             }
-            if(enemy.body.blocked.left){
-                this.moveEnemy('right', enemy)
+            if (enemy.body.blocked.left) {
+                this.moveEnemy('right', enemy);
             }
-        })
+        });
     }
 }

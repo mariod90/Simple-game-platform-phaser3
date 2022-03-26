@@ -42,6 +42,30 @@
                  "width":0,
                  "x":537,
                  "y":177
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"chicken",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":686,
+                 "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"chicken",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":184,
+                 "y":152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -95,8 +119,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":7,
+ "nextlayerid":7,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

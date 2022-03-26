@@ -80,6 +80,12 @@ export default class Load extends Phaser.Scene {
             frameWidth: 30,
             frameHeight: 38
         });
+
+        // Explosion
+        this.load.spritesheet(Constants.ENEMIES.EXPLOSION.ID, 'images/enemies/explosion.png', {
+            frameWidth: 38,
+            frameHeight: 38
+        });
     }
 
     private createBars(): void {

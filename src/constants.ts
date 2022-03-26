@@ -70,6 +70,10 @@ const Constants = {
             ID: 'radish',
             ANIM: 'radishRun',
             SPEED: 100
+        },
+        EXPLOSION: {
+            ID: 'explosion',
+            ANIM: 'explota'
         }
     }
 };

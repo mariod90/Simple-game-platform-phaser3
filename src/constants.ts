@@ -8,7 +8,7 @@ const Constants = {
         PLAY_GAME: 'PLAY GAME'
     },
     HUD: {
-        LIVES: 'Lives:'
+        LIVES: 'LIVES:'
     },
     SCENES: {
         LOAD: 'Load',
@@ -28,8 +28,11 @@ const Constants = {
         },
         TILESET: 'levelstileset',
         FINALPOSITION: 'finalposition',
-        ENEMIES: 'enemies'
-
+        ENEMIES: 'enemies',
+        MOBILEPLATFORMS: 'mobileplatforms',
+        VERTICALPLATFORM: 'vertical',
+        HORIZONTALPLATFORM: 'horizontal',
+        HARVESTABLE: 'harvestable'
     },
     BACKGROUNDS: {
         LEVEL1: 'Brown'
@@ -74,6 +77,33 @@ const Constants = {
         EXPLOSION: {
             ID: 'explosion',
             ANIM: 'explota'
+        }
+    },
+    MOVILPLATFORM: {
+        ID: 'movilplatform',
+        SPEED: 60
+    },
+    SOUNDS: {
+        EFFECTS: {
+            JUMP: 'jump',
+            FALLONENEMY: 'fallon',
+            REMOVELIFE: 'removelife',
+            COLLECT: 'collect'
+        },
+        SOUNDTRACK: 'soundtrack'
+    },
+    HARVESTABLE: {
+        BANANA: {
+            ID: 'banana',
+            ANIM: 'bananaAnim'
+        },
+        PINEAPPLE: {
+            ID: 'pineapple',
+            ANIM: 'pineappleAnim'
+        },
+        CHERRY: {
+            ID: 'cherry',
+            ANIM: 'cherryAnim'
         }
     }
 };

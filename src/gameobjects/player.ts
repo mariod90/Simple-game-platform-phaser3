@@ -9,6 +9,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     scene: Level1;
     timeWaitCollisionActive: boolean;
+    collecting: boolean;
+
+    private jumpAudio: Phaser.Sound.BaseSound;
+    private fallOnAudio: Phaser.Sound.BaseSound;
+    private collectAudio: Phaser.Sound.BaseSound;
 
     constructor(config: any) {
         super(config.scene, config.x, config.y, config.texture);
@@ -25,6 +30,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.keySPACE = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.play(Constants.PLAYER.ANIMATION.IDLE);
+        this.timeWaitCollisionActive = false;
+        this.collecting = false;
+
+        this.jumpAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.JUMP);
+        this.fallOnAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.FALLONENEMY);
+        this.collectAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.COLLECT);
     }
 
     update() {
@@ -50,6 +61,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-300);
             this.anims.stop();
             this.setTexture(Constants.PLAYER.ID, Constants.PLAYER.ANIMATION.JUMP);
+            this.jumpAudio.play();
         }
     }
 
@@ -57,6 +69,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // hace desaparecer al enemigo si salta sobre el
         if (player.body.velocity.y > 100 && enemy.body.touching.up && player.body.touching.down) {
             if (!player.timeWaitCollisionActive) {
+                player.fallOnAudio.play();
                 let posX = enemy.x;
                 let posY = enemy.y;
                 enemy.destroy();
@@ -94,6 +107,33 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 callback: () => {
                     player.timeWaitCollisionActive = false;
                     player.tint = 0xffffff;
+                }
+            });
+        }
+    }
+
+    public collect(player: Player, object: Phaser.Physics.Arcade.Sprite): void {
+        if (!player.collecting) {
+            player.collectAudio.play();
+            player.collecting = true;
+
+            // incrementa marcador en 50 puntos
+            player.scene.score += 50;
+            player.scene.registry.set(Constants.REGISTER.SCORE, player.scene.score);
+            player.scene.events.emit(Constants.EVENTS.SCORE);
+
+            //player.soundCollect.play()
+            // animacion para desparecer objeto
+            player.scene.tweens.add({
+                targets: object,
+                y: object.y - 50,
+                alpha: 0,
+                duration: 800,
+                ease: 'Cubic.easeOut',
+                callbackScope: this,
+                onComplete: function () {
+                    player.collecting = false;
+                    object.destroy();
                 }
             });
         }

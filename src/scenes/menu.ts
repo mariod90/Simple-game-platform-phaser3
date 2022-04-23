@@ -4,6 +4,8 @@ export default class Menu extends Phaser.Scene {
     private width: number;
     private height: number;
 
+    private soundtrackMenu: Phaser.Sound.BaseSound;
+
     constructor() {
         super(Constants.SCENES.MENU);
     }
@@ -11,6 +13,13 @@ export default class Menu extends Phaser.Scene {
     init() {
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
+        this.sound.stopAll();
+    }
+
+    preload() {
+        // cargar sonidos
+        this.soundtrackMenu = this.sound.add(Constants.SOUNDS.SOUNDTRACK + 0, { loop: true });
+        this.soundtrackMenu.play();
     }
 
     create() {
@@ -29,9 +38,13 @@ export default class Menu extends Phaser.Scene {
      */
     private changeScene(playGameTxt: Phaser.GameObjects.BitmapText, scene: string) {
         playGameTxt.on('pointerdown', () => {
-            this.scene.start(scene);
-            this.scene.start(Constants.SCENES.HUD);
-            this.scene.bringToTop(Constants.SCENES.HUD);
+            this.cameras.main.fade(700, 0, 0, 0);
+            this.cameras.main.on('camerafadeoutcomplete', () => {
+                this.sound.stopAll();
+                this.scene.start(scene);
+                this.scene.start(Constants.SCENES.HUD);
+                this.scene.bringToTop(Constants.SCENES.HUD);
+            });
         });
     }
 }

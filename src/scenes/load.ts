@@ -86,6 +86,36 @@ export default class Load extends Phaser.Scene {
             frameWidth: 38,
             frameHeight: 38
         });
+
+        // Plataformas moviles
+        this.load.spritesheet(Constants.MOVILPLATFORM.ID, 'images/objects/movilplatform.png', {
+            frameWidth: 38,
+            frameHeight: 38
+        });
+
+        // Sonidos
+        this.load.audio(Constants.SOUNDS.EFFECTS.JUMP, 'sounds/effects/saltar.ogg');
+        this.load.audio(Constants.SOUNDS.EFFECTS.FALLONENEMY, 'sounds/effects/caersobre.ogg');
+        this.load.audio(Constants.SOUNDS.EFFECTS.REMOVELIFE, 'sounds/effects/vida.ogg');
+        this.load.audio(Constants.SOUNDS.EFFECTS.COLLECT, 'sounds/effects/recolectar.ogg');
+
+        for (let i = 0; i <= 2; i++) {
+            this.load.audio(Constants.SOUNDS.SOUNDTRACK + i, `sounds/soundtrack/cartoongame${i}.ogg`);
+        }
+
+        // recolectables
+        this.load.spritesheet(Constants.HARVESTABLE.BANANA.ID, 'images/objects/banana.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+        this.load.spritesheet(Constants.HARVESTABLE.CHERRY.ID, 'images/objects/cherry.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+        this.load.spritesheet(Constants.HARVESTABLE.PINEAPPLE.ID, 'images/objects/pineapple.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
     }
 
     private createBars(): void {

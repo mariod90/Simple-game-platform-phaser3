@@ -1,13 +1,13 @@
-import Level1 from '../scenes/level1';
 import Constants from '../constants';
+import HandlerLevels from '../scenes/handlerLevels';
 
 // @ts-ignore
 export default class MobilePlatforms extends Phaser.Physics.Arcade.Group {
-    private scene: Level1;
+    private scene: HandlerLevels;
     private speed: number;
     private horizontal: boolean;
 
-    constructor(scene: Level1, nameObject: string, objectId: string, speed: number, horizontal: boolean) {
+    constructor(scene: HandlerLevels, nameObject: string, objectId: string, speed: number, horizontal: boolean) {
         super(scene.physics.world, scene);
 
         this.scene = scene;

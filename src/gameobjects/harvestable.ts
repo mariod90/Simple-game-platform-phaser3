@@ -1,10 +1,10 @@
-import Level1 from '../scenes/level1';
+import HandlerLevels from '../scenes/handlerLevels';
 
 export default // @ts-ignore
 class Harvestable extends Phaser.Physics.Arcade.Group {
-    private scene: Level1;
+    private scene: HandlerLevels;
 
-    constructor(scene: Level1, nameObject: string, objectId: string, objectAnim: string) {
+    constructor(scene: HandlerLevels, nameObject: string, objectId: string, objectAnim: string) {
         super(scene.physics.world, scene);
 
         // añade los objetos de los recolectables desde el array de sprites obtenidos del mapa al grupo

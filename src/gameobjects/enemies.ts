@@ -1,4 +1,5 @@
 import Level1 from '../scenes/level1';
+import HandlerLevels from '../scenes/handlerLevels';
 
 interface Rect {
     size: Coordinate;
@@ -11,10 +12,10 @@ interface Coordinate {
 
 export default // @ts-ignore
 class Enemies extends Phaser.Physics.Arcade.Group {
-    private scene: Level1;
+    private scene: HandlerLevels;
     private speed: number;
 
-    constructor(scene: Level1, objectName: string, objectId: string, objectAnim: string, speed: number, rect: Rect) {
+    constructor(scene: HandlerLevels, objectName: string, objectId: string, objectAnim: string, speed: number) {
         super(scene.physics.world, scene);
         this.scene = scene;
         this.speed = speed;
@@ -35,8 +36,6 @@ class Enemies extends Phaser.Physics.Arcade.Group {
 
         this.children.entries.map((enemy: any) => {
             enemy.body.setCollideWorldBounds(true);
-            enemy.body.setSize(rect.size.x, rect.size.y);
-            enemy.body.setOffset(rect.offset.x, rect.offset.y);
             enemy.play(objectAnim);
             this.moveEnemy(Phaser.Math.Between(0, 1) ? 'left' : 'right', enemy);
         });

@@ -14,6 +14,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private jumpAudio: Phaser.Sound.BaseSound;
     private fallOnAudio: Phaser.Sound.BaseSound;
     private collectAudio: Phaser.Sound.BaseSound;
+    private lifeAudio: Phaser.Sound.BaseSound;
 
     constructor(config: any) {
         super(config.scene, config.x, config.y, config.texture);
@@ -36,6 +37,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.jumpAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.JUMP);
         this.fallOnAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.FALLONENEMY);
         this.collectAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.COLLECT);
+        this.lifeAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.REMOVELIFE);
     }
 
     update() {
@@ -92,6 +94,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
         } else if (!player.timeWaitCollisionActive) {
             // quita vidas y actualiza HUD
+            player.lifeAudio.play();
             player.scene.lives--;
             player.scene.registry.set(Constants.REGISTER.LIVES, player.scene.lives);
             player.scene.events.emit(Constants.EVENTS.LIVES);

@@ -10,6 +10,7 @@ const config = {
     height: 600,
     scene: [Load, Menu, Level1, HUD],
     pixelArt: true,
+    audio: { disableWebAudio: true },
     physics: {
         default: 'arcade',
         arcade: {

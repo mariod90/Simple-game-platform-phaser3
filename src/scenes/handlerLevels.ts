@@ -65,10 +65,7 @@ export default class HandlerLevels extends Phaser.Scene {
 
     preload(): void {
         // Carga de sonidos y lo ejecuta con loop
-        this.soundtrack = this.sound.add(Constants.SOUNDS.SOUNDTRACK+1, {
-            loop: true,
-        });
-        this.soundtrack.play();
+
     }
 
     /**
@@ -77,6 +74,8 @@ export default class HandlerLevels extends Phaser.Scene {
      * @param {string} imageScrollable
      */
     createSceneLevel(jsonMap: string, imageScrollable): void {
+        this.createSoundTrack();
+
         this.createLevelMap(Constants.MAPS.LEVEL1.TILEMAPJSON);
 
         this.createBackgroundScrollable(Constants.BACKGROUNDS.LEVEL1);
@@ -88,6 +87,23 @@ export default class HandlerLevels extends Phaser.Scene {
         this.createFinalObject();
 
         this.createMobilePlatforms();
+    }
+
+    /** Metodo que crea el sonido de fondo */
+    createSoundTrack(): void {
+        // Carga de sonido y lo ejecuta con loop
+        this.soundtrack = this.sound.add(Constants.SOUNDS.SOUNDTRACK+1, {
+            loop: true, volume: 0
+        });
+        this.soundtrack.play();
+
+        // Fadein del sonido
+        this.tweens.add({
+            targets: this.soundtrack,
+            volume: 1,
+            duration: 2000,
+        });
+
     }
 
     /**

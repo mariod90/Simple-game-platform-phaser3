@@ -9,14 +9,14 @@ export default class Load extends Phaser.Scene {
     }
 
     preload(): void {
-        this.cameras.main.setBackgroundColor(0x000000);
+        this.cameras.main.setBackgroundColor(0x9fcc98);
         this.createBars();
         //Listener mientras se cargan los assets
         this.load.on(
             'progress',
             function (value: number) {
                 this.progressBar.clear();
-                this.progressBar.fillStyle(0x88e453, 1);
+                this.progressBar.fillStyle(0x72a11d, 1);
                 this.progressBar.fillRect(
                     this.cameras.main.width / 4,
                     this.cameras.main.height / 2 - 16,
@@ -51,6 +51,7 @@ export default class Load extends Phaser.Scene {
 
         // Fondos
         this.load.image(Constants.BACKGROUNDS.LEVEL1, 'images/backgrounds/Brown.png');
+        this.load.image(Constants.BACKGROUNDS.MENU, 'images/backgrounds/Green.png');
 
         // Fuentes
         this.load.json(Constants.FONTS.JSON, 'fonts/fuente.json');

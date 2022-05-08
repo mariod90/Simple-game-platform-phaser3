@@ -5,7 +5,10 @@ const Constants = {
         CLOCK: 'clock'
     },
     MENU: {
-        PLAY_GAME: 'PLAY GAME'
+        PLAY_GAME: 'PLAY GAME',
+        TITLE: 'MEGA RANINJA',
+        CONFIG: 'CONFIG',
+        CREDITS: 'CREDITS',
     },
     HUD: {
         LIVES: 'LIVES:'
@@ -35,7 +38,8 @@ const Constants = {
         HARVESTABLE: 'harvestable'
     },
     BACKGROUNDS: {
-        LEVEL1: 'Brown'
+        LEVEL1: 'Brown',
+        MENU: 'Green',
     },
     FONTS: {
         JSON: 'fuenteJSON',

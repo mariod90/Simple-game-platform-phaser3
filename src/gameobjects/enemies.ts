@@ -1,14 +1,4 @@
-import Level1 from '../scenes/level1';
 import HandlerLevels from '../scenes/handlerLevels';
-
-interface Rect {
-    size: Coordinate;
-    offset: Coordinate;
-}
-interface Coordinate {
-    x: number;
-    y: number;
-}
 
 export default // @ts-ignore
 class Enemies extends Phaser.Physics.Arcade.Group {

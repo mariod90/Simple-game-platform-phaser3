@@ -17,12 +17,16 @@ const Constants = {
         LOAD: 'Load',
         MENU: 'Menu',
         LEVEL1: 'Level1',
-        HUD: 'HUD'
+        HUD: 'HUD',
+        SETTINGS: 'Settings',
+        CREDITS: 'Credits',
     },
     REGISTER: {
         LIVES: 'lives',
         SCORE: 'score',
-        CLOCK: 'clock'
+        CLOCK: 'clock',
+        MUSIC: 'music',
+        EFFECTS: 'effects',
     },
     MAPS: {
         LEVEL1: {
@@ -109,6 +113,13 @@ const Constants = {
             ID: 'cherry',
             ANIM: 'cherryAnim'
         }
+    },
+    SETTINGS: {
+        BACK : 'BACK',
+        MUSIC: 'MUSIC',
+        EFFECTS: 'EFFECTS',
+        SOUND_ON: 'sound_on',
+        SOUND_OFF: 'sound_off',
     }
 };
 

@@ -63,7 +63,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-300);
             this.anims.stop();
             this.setTexture(Constants.PLAYER.ID, Constants.PLAYER.ANIMATION.JUMP);
-            this.jumpAudio.play();
+            this.playSound(this.jumpAudio);
         }
     }
 
@@ -71,7 +71,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // hace desaparecer al enemigo si salta sobre el
         if (player.body.velocity.y > 100 && enemy.body.touching.up && player.body.touching.down) {
             if (!player.timeWaitCollisionActive) {
-                player.fallOnAudio.play();
+                player.playSound(player.fallOnAudio);
                 let posX = enemy.x;
                 let posY = enemy.y;
                 enemy.destroy();
@@ -94,7 +94,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
         } else if (!player.timeWaitCollisionActive) {
             // quita vidas y actualiza HUD
-            player.lifeAudio.play();
+            player.playSound(player.lifeAudio);
             player.scene.lives--;
             player.scene.registry.set(Constants.REGISTER.LIVES, player.scene.lives);
             player.scene.events.emit(Constants.EVENTS.LIVES);
@@ -117,7 +117,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     public collect(player: Player, object: Phaser.Physics.Arcade.Sprite): void {
         if (!player.collecting) {
-            player.collectAudio.play();
+            player.playSound(player.collectAudio);
             player.collecting = true;
 
             // incrementa marcador en 50 puntos
@@ -139,6 +139,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                     object.destroy();
                 }
             });
+        }
+    }
+
+    private playSound(sound: Phaser.Sound.BaseSound): void {
+        if (this.scene.registry.get(Constants.REGISTER.EFFECTS) === Constants.SETTINGS.SOUND_ON) {
+            sound.play();
         }
     }
 }

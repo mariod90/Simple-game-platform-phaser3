@@ -24,6 +24,16 @@ export default class Menu extends Phaser.Scene {
             .bitmapText(50, this.height - 100, Constants.FONTS.BITMAP, Constants.MENU.PLAY_GAME, 25)
             .setInteractive();
         this.changeScene(playGameTxt, Constants.SCENES.LEVEL1);
+
+        const configTxt: Phaser.GameObjects.BitmapText = this.add
+            .bitmapText(300, 500, Constants.FONTS.BITMAP, Constants.MENU.CONFIG, 25)
+            .setInteractive();
+        this.changeScene(configTxt, Constants.SCENES.SETTINGS, false);
+    }
+
+    update(): void{
+        // movimiento scroll del fondo
+        this.backgroundImage.tilePositionY -= 0.4;
     }
 
     /**
@@ -32,14 +42,16 @@ export default class Menu extends Phaser.Scene {
      * @param scene
      * @private
      */
-    private changeScene(playGameTxt: Phaser.GameObjects.BitmapText, scene: string) {
+    private changeScene(playGameTxt: Phaser.GameObjects.BitmapText, scene: string, hud: boolean = true) {
         playGameTxt.on('pointerdown', () => {
             this.cameras.main.fade(700, 0, 0, 0);
             this.cameras.main.on('camerafadeoutcomplete', () => {
                 this.sound.stopAll();
                 this.scene.start(scene);
-                this.scene.start(Constants.SCENES.HUD);
-                this.scene.bringToTop(Constants.SCENES.HUD);
+                if(hud) {
+                    this.scene.start(Constants.SCENES.HUD);
+                    this.scene.bringToTop(Constants.SCENES.HUD);
+                }
             });
         });
     }

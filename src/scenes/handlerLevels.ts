@@ -91,19 +91,20 @@ export default class HandlerLevels extends Phaser.Scene {
 
     /** Metodo que crea el sonido de fondo */
     createSoundTrack(): void {
-        // Carga de sonido y lo ejecuta con loop
-        this.soundtrack = this.sound.add(Constants.SOUNDS.SOUNDTRACK+1, {
-            loop: true, volume: 0
-        });
-        this.soundtrack.play();
+        if(this.registry.get(Constants.REGISTER.MUSIC) == Constants.SETTINGS.SOUND_ON) {
+            // Carga de sonido y lo ejecuta con loop
+            this.soundtrack = this.sound.add(Constants.SOUNDS.SOUNDTRACK+1, {
+                loop: true, volume: 0
+            });
+            this.soundtrack.play();
 
-        // Fadein del sonido
-        this.tweens.add({
-            targets: this.soundtrack,
-            volume: 1,
-            duration: 2000,
-        });
-
+            // Fadein del sonido
+            this.tweens.add({
+                targets: this.soundtrack,
+                volume: 1,
+                duration: 2000,
+            });
+        }
     }
 
     /**

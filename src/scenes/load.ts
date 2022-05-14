@@ -117,6 +117,16 @@ export default class Load extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
+
+        // ajustes
+        this.load.image(Constants.SETTINGS.SOUND_ON, 'images/objects/sonidoon.png');
+        this.load.image(Constants.SETTINGS.SOUND_OFF, 'images/objects/sonidooff.png');
+    }
+
+    create() {
+        // carga de ajustes iniciales
+        this.registry.set(Constants.REGISTER.MUSIC, Constants.SETTINGS.SOUND_ON);
+        this.registry.set(Constants.REGISTER.EFFECTS, Constants.SETTINGS.SOUND_ON);
     }
 
     private createBars(): void {

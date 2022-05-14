@@ -1,9 +1,9 @@
 import Constants from '../constants';
 
 export default class HUD extends Phaser.Scene {
-    private livesTxt: Phaser.GameObjects.Text;
-    private scoreTxt: Phaser.GameObjects.Text;
-    private textClock: Phaser.GameObjects.Text;
+    private livesTxt: Phaser.GameObjects.BitmapText;
+    private scoreTxt: Phaser.GameObjects.BitmapText;
+    private textClock: Phaser.GameObjects.BitmapText;
     private width: number;
     private height: number;
 
@@ -22,20 +22,17 @@ export default class HUD extends Phaser.Scene {
         level1.events.on(Constants.EVENTS.SCORE, this.updateScore, this);
         level1.events.on(Constants.EVENTS.CLOCK, this.updateClock, this);
 
-        this.livesTxt = this.add.text(20, 20, Constants.HUD.LIVES + this.registry.get(Constants.REGISTER.LIVES), {
-            fontSize: '32px',
-            color: '#FFFFFF'
-        });
+        this.livesTxt = this.add.bitmapText(
+            20,
+            20,
+            Constants.FONTS.BITMAP,
+            Constants.HUD.LIVES + this.registry.get(Constants.REGISTER.LIVES),
+            20
+        );
 
-        this.scoreTxt = this.add.text(this.width - 50, 20, '000', {
-            fontSize: '20px',
-            color: '#FFFFFF'
-        });
+        this.scoreTxt = this.add.bitmapText(this.width - 50, 20, Constants.FONTS.BITMAP, '000', 20);
 
-        this.textClock = this.add.text(this.width / 2, 20, '05:00', {
-            fontSize: '20px',
-            color: '#FFFFFF'
-        });
+        this.textClock = this.add.bitmapText(this.width / 2, 20, Constants.FONTS.BITMAP, '05:00', 20);
     }
 
     private updateLives() {

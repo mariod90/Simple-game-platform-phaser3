@@ -21,14 +21,19 @@ export default class Menu extends Phaser.Scene {
         const title: Phaser.GameObjects.BitmapText = this.add
             .bitmapText(250, 50, Constants.FONTS.BITMAP, Constants.MENU.TITLE, 20);
         const playGameTxt: Phaser.GameObjects.BitmapText = this.add
-            .bitmapText(50, this.height - 100, Constants.FONTS.BITMAP, Constants.MENU.PLAY_GAME, 25)
+            .bitmapText(50, this.height - 100, Constants.FONTS.BITMAP, Constants.MENU.PLAY_GAME, 20)
             .setInteractive();
-        this.changeScene(playGameTxt, Constants.SCENES.LEVEL1);
+        this.changeScene(playGameTxt, Constants.SCENES.LEVELSELECTION);
 
-        const configTxt: Phaser.GameObjects.BitmapText = this.add
-            .bitmapText(300, 500, Constants.FONTS.BITMAP, Constants.MENU.CONFIG, 25)
+        const settingsTxt: Phaser.GameObjects.BitmapText = this.add
+            .bitmapText(340, 500, Constants.FONTS.BITMAP, Constants.MENU.SETTINGS, 20)
             .setInteractive();
-        this.changeScene(configTxt, Constants.SCENES.SETTINGS, false);
+        this.changeScene(settingsTxt, Constants.SCENES.SETTINGS);
+
+        const creditsTxt: Phaser.GameObjects.BitmapText = this.add
+            .bitmapText(this.cameras.main.width - 200, 500, Constants.FONTS.BITMAP, Constants.MENU.CREDITS, 20)
+            .setInteractive();
+        this.changeScene(creditsTxt, Constants.SCENES.CREDITS);
     }
 
     update(): void{
@@ -42,17 +47,9 @@ export default class Menu extends Phaser.Scene {
      * @param scene
      * @private
      */
-    private changeScene(playGameTxt: Phaser.GameObjects.BitmapText, scene: string, hud: boolean = true) {
-        playGameTxt.on('pointerdown', () => {
-            this.cameras.main.fade(700, 0, 0, 0);
-            this.cameras.main.on('camerafadeoutcomplete', () => {
-                this.sound.stopAll();
-                this.scene.start(scene);
-                if(hud) {
-                    this.scene.start(Constants.SCENES.HUD);
-                    this.scene.bringToTop(Constants.SCENES.HUD);
-                }
-            });
+    private changeScene(text: Phaser.GameObjects.BitmapText, scene: string) {
+        text.on('pointerdown', () => {
+            this.scene.start(scene);
         });
     }
 }

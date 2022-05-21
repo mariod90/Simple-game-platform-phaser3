@@ -6,21 +6,23 @@ export default class HUD extends Phaser.Scene {
     private textClock: Phaser.GameObjects.BitmapText;
     private width: number;
     private height: number;
+    private nameLevel: string;
 
     constructor() {
         super(Constants.SCENES.HUD);
     }
 
-    init() {
+    init(data: any): void {
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
+        this.nameLevel = data.nameLevel;
     }
 
     create() {
-        const level1: Phaser.Scene = this.scene.get(Constants.SCENES.LEVEL1);
-        level1.events.on(Constants.EVENTS.LIVES, this.updateLives, this);
-        level1.events.on(Constants.EVENTS.SCORE, this.updateScore, this);
-        level1.events.on(Constants.EVENTS.CLOCK, this.updateClock, this);
+        const level: Phaser.Scene = this.scene.get(this.nameLevel);
+        level.events.on(Constants.EVENTS.LIVES, this.updateLives, this);
+        level.events.on(Constants.EVENTS.SCORE, this.updateScore, this);
+        level.events.on(Constants.EVENTS.CLOCK, this.updateClock, this);
 
         this.livesTxt = this.add.bitmapText(
             20,

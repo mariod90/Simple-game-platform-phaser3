@@ -34,12 +34,33 @@ export default class Load extends Phaser.Scene {
                 const fontJSON = this.cache.json.get(Constants.FONTS.JSON);
                 this.cache.bitmapFont.add(Constants.FONTS.BITMAP, Phaser.GameObjects.RetroFont.Parse(this, fontJSON));
                 // Carga de menu
-                this.scene.start('Menu');
+                this.scene.start(Constants.SCENES.MENU);
             },
             this
         );
 
-        // -------------------------------------------------------------------------------------------------------------
+        this.loadAssets();
+    }
+
+    create() {
+        // carga de ajustes iniciales
+        this.registry.set(Constants.REGISTER.MUSIC, Constants.SETTINGS.SOUND_ON);
+        this.registry.set(Constants.REGISTER.EFFECTS, Constants.SETTINGS.SOUND_ON);
+    }
+
+    private createBars(): void {
+        this.loadBar = this.add.graphics();
+        this.loadBar.fillStyle(0xffffff, 1);
+        this.loadBar.fillRect(
+            this.cameras.main.width / 4 - 2,
+            this.cameras.main.height / 2 - 18,
+            this.cameras.main.width / 2 + 4,
+            20
+        );
+        this.progressBar = this.add.graphics();
+    }
+
+    private loadAssets() {
         this.load.path = 'assets/';
 
         // Carga de assets del juego
@@ -47,10 +68,14 @@ export default class Load extends Phaser.Scene {
 
         // Mapas
         this.load.tilemapTiledJSON(Constants.MAPS.LEVEL1.TILEMAPJSON, 'levels/level1.json');
+        this.load.tilemapTiledJSON(Constants.MAPS.LEVEL2.TILEMAPJSON, 'levels/level2.json');
+        this.load.tilemapTiledJSON(Constants.MAPS.LEVEL3.TILEMAPJSON, 'levels/level3.json');
         this.load.image(Constants.MAPS.TILESET, 'levels/levelstileset.png');
 
         // Fondos
         this.load.image(Constants.BACKGROUNDS.LEVEL1, 'images/backgrounds/Brown.png');
+        this.load.image(Constants.BACKGROUNDS.LEVEL2, 'images/backgrounds/Pink.png');
+        this.load.image(Constants.BACKGROUNDS.LEVEL3, 'images/backgrounds/Blue.png');
         this.load.image(Constants.BACKGROUNDS.MENU, 'images/backgrounds/Green.png');
 
         // Fuentes
@@ -121,23 +146,8 @@ export default class Load extends Phaser.Scene {
         // ajustes
         this.load.image(Constants.SETTINGS.SOUND_ON, 'images/objects/sonidoon.png');
         this.load.image(Constants.SETTINGS.SOUND_OFF, 'images/objects/sonidooff.png');
-    }
 
-    create() {
-        // carga de ajustes iniciales
-        this.registry.set(Constants.REGISTER.MUSIC, Constants.SETTINGS.SOUND_ON);
-        this.registry.set(Constants.REGISTER.EFFECTS, Constants.SETTINGS.SOUND_ON);
-    }
-
-    private createBars(): void {
-        this.loadBar = this.add.graphics();
-        this.loadBar.fillStyle(0xffffff, 1);
-        this.loadBar.fillRect(
-            this.cameras.main.width / 4 - 2,
-            this.cameras.main.height / 2 - 18,
-            this.cameras.main.width / 2 + 4,
-            20
-        );
-        this.progressBar = this.add.graphics();
+        // creditos
+        this.load.image(Constants.CREDITS.GAMEDEV, 'images/objects/mariod90.png');
     }
 }

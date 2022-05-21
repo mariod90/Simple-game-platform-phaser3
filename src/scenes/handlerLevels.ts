@@ -6,6 +6,7 @@ import Harvestable from '../gameobjects/harvestable';
 
 export default class HandlerLevels extends Phaser.Scene {
     protected levelName: string;
+    protected nameBackgroundImage: string;
 
     // vidas y puntuacion
     public lives: number;
@@ -76,9 +77,9 @@ export default class HandlerLevels extends Phaser.Scene {
     createSceneLevel(jsonMap: string, imageScrollable): void {
         this.createSoundTrack();
 
-        this.createLevelMap(Constants.MAPS.LEVEL1.TILEMAPJSON);
+        this.createLevelMap(jsonMap, Constants.MAPS.TILESET);
 
-        this.createBackgroundScrollable(Constants.BACKGROUNDS.LEVEL1);
+        this.createBackgroundScrollable(imageScrollable);
 
         this.createAnimations();
 
@@ -121,7 +122,7 @@ export default class HandlerLevels extends Phaser.Scene {
         this.patternSet = this.levelMap.addTilesetImage(imageMap);
         // Capa de plataformas
         this.layerPlatformLevelMap = this.levelMap.createLayer(
-            Constants.MAPS.LEVEL1.LAYERPLATFORM,
+            Constants.MAPS.LAYERPLATFORM,
             this.patternSet
         );
         this.layerPlatformLevelMap.setCollisionByExclusion([-1]);
@@ -140,6 +141,7 @@ export default class HandlerLevels extends Phaser.Scene {
             this.levelMap.heightInPixels,
             imageScrollable
         ).setOrigin(0, 0).setDepth(-1);
+        this.nameBackgroundImage = imageScrollable;
     }
 
     /**
@@ -210,7 +212,7 @@ export default class HandlerLevels extends Phaser.Scene {
 
         // colision para final del nivel
         this.physics.add.collider(this.player, finalObject, () => {
-            this.backToMenu();
+            this.endLevel();
         });
     }
 
@@ -225,6 +227,16 @@ export default class HandlerLevels extends Phaser.Scene {
             this.scene.stop(Constants.SCENES.HUD);
             this.scene.start(Constants.SCENES.MENU);
         });
+    }
+
+    /**
+     * Metodo que finaliza nivel y muestra escena de final de nivel
+     */
+    endLevel(isWin: boolean = true): void{
+        this.sound.stopAll();
+        this.scene.stop(this.levelName);
+        this.scene.stop(Constants.SCENES.HUD);
+        this.scene.start(Constants.SCENES.FINALLEVEL, {isWin: isWin, levelName: this.levelName, nameBackground: this.nameBackgroundImage, score: this.score + this.timeLeft});
     }
 
     /**
@@ -315,7 +327,7 @@ export default class HandlerLevels extends Phaser.Scene {
         }
         // Volver a menu
         if (this.lives === 0 || this.timeOut) {
-            this.backToMenu();
+            this.endLevel(false);
         }
     }
 }

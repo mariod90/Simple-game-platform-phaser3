@@ -4,10 +4,15 @@ const Constants = {
         SCORE: 'changeScore',
         CLOCK: 'clock'
     },
+    ENDLEVEL: {
+        SCORE: 'SCORE: ',
+        WIN: 'YOU WIN!!',
+        GAMEOVER: 'GAME OVER!!'
+    },
     MENU: {
         PLAY_GAME: 'PLAY GAME',
         TITLE: 'MEGA RANINJA',
-        CONFIG: 'CONFIG',
+        SETTINGS: 'SETTINGS',
         CREDITS: 'CREDITS',
     },
     HUD: {
@@ -16,10 +21,14 @@ const Constants = {
     SCENES: {
         LOAD: 'Load',
         MENU: 'Menu',
-        LEVEL1: 'Level1',
+        LEVEL1: 'LEVEL 1',
+        LEVEL2: 'LEVEL 2',
+        LEVEL3: 'LEVEL 3',
         HUD: 'HUD',
         SETTINGS: 'Settings',
         CREDITS: 'Credits',
+        LEVELSELECTION: 'LevelSelection',
+        FINALLEVEL: 'FinalLevel',
     },
     REGISTER: {
         LIVES: 'lives',
@@ -29,9 +38,15 @@ const Constants = {
         EFFECTS: 'effects',
     },
     MAPS: {
+        LAYERPLATFORM: 'Plataformas',
         LEVEL1: {
-            TILEMAPJSON: 'mapLevel1',
-            LAYERPLATFORM: 'Plataformas'
+            TILEMAPJSON: 'mapLevel1'
+        },
+        LEVEL2: {
+            TILEMAPJSON: 'mapLevel2'
+        },
+        LEVEL3: {
+            TILEMAPJSON: 'mapLevel3'
         },
         TILESET: 'levelstileset',
         FINALPOSITION: 'finalposition',
@@ -43,6 +58,8 @@ const Constants = {
     },
     BACKGROUNDS: {
         LEVEL1: 'Brown',
+        LEVEL2: 'Pink',
+        LEVEL3: 'Blue',
         MENU: 'Green',
     },
     FONTS: {
@@ -120,6 +137,12 @@ const Constants = {
         EFFECTS: 'EFFECTS',
         SOUND_ON: 'sound_on',
         SOUND_OFF: 'sound_off',
+    },
+    CREDITS: {
+        GAMEDEV: 'mariod90',
+        CREATEBY: 'GAMEDEV: MARIOD90\n\nWITH PHASER 3.50 AND TYPESCRIPT',
+        ASSETS: 'SPRITES : PIXEL ADVENTURE BY PIXELFROG\n\n\nMUSIC : FREE SOUND CARTOON THEME LOOP\n\nBY DANIEL NORONHA',
+        BACK: 'BACK',
     }
 };
 

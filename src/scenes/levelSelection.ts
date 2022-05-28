@@ -1,10 +1,13 @@
 import Constants from '../constants';
+import HandlerBD from '../databse/handlerbd';
 
 export default class LevelSelection extends Phaser.Scene{
     private backgroundImage: Phaser.GameObjects.TileSprite;
+    private bd: HandlerBD;
 
     constructor(){
         super(Constants.SCENES.LEVELSELECTION);
+        this.bd = new HandlerBD();
     }
 
     create(): void{
@@ -20,12 +23,15 @@ export default class LevelSelection extends Phaser.Scene{
         // botones para seleccionar nivel1
         const level1Txt: Phaser.GameObjects.BitmapText = this.add.bitmapText(80, 100, Constants.FONTS.BITMAP, Constants.SCENES.LEVEL1, 20).setInteractive()
         this.changeScene(level1Txt, Constants.SCENES.LEVEL1);
+        // this.writeHighScore(level1Txt);
 
         const level2Txt: Phaser.GameObjects.BitmapText = this.add.bitmapText(80, 200, Constants.FONTS.BITMAP, Constants.SCENES.LEVEL2, 20).setInteractive()
         this.changeScene(level2Txt, Constants.SCENES.LEVEL2);
+        // this.writeHighScore(level2Txt);
 
         const level3Txt: Phaser.GameObjects.BitmapText = this.add.bitmapText(80, 300, Constants.FONTS.BITMAP, Constants.SCENES.LEVEL3, 20).setInteractive()
         this.changeScene(level3Txt, Constants.SCENES.LEVEL3);
+        // this.writeHighScore(level3Txt);
 
     }
 
@@ -49,5 +55,13 @@ export default class LevelSelection extends Phaser.Scene{
                 });
             }
         });
+    }
+
+    private writeHighScore(levelTxt: Phaser.GameObjects.BitmapText): void {
+        let levelBd: string = levelTxt.text.split(' ').join('').toLowerCase();
+        if(this.bd.data.score[levelBd] > 0){
+            let betterScore: string = Phaser.Utils.String.Pad(this.bd.data.score[levelBd], 5, '0', 1);
+            const levelScore: Phaser.GameObjects.BitmapText = this.add.bitmapText(levelTxt.x + 200, levelTxt.y, Constants.FONTS.BITMAP, betterScore, 20);
+        }
     }
 }

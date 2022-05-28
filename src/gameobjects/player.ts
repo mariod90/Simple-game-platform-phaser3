@@ -1,6 +1,7 @@
 import Constants from '../constants';
 import GameObject = Phaser.GameObjects.GameObject;
 import Level1 from '../scenes/level1';
+import HandlerBD from '../databse/handlerbd';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -15,6 +16,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private fallOnAudio: Phaser.Sound.BaseSound;
     private collectAudio: Phaser.Sound.BaseSound;
     private lifeAudio: Phaser.Sound.BaseSound;
+    private bd: HandlerBD;
 
     constructor(config: any) {
         super(config.scene, config.x, config.y, config.texture);
@@ -38,6 +40,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.fallOnAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.FALLONENEMY);
         this.collectAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.COLLECT);
         this.lifeAudio = this.scene.sound.add(Constants.SOUNDS.EFFECTS.REMOVELIFE);
+        this.bd = new HandlerBD();
     }
 
     update() {
@@ -143,7 +146,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     private playSound(sound: Phaser.Sound.BaseSound): void {
-        if (this.scene.registry.get(Constants.REGISTER.EFFECTS) === Constants.SETTINGS.SOUND_ON) {
+        if (this.bd.data.effects) {
             sound.play();
         }
     }

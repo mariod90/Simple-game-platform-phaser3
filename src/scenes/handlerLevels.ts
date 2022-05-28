@@ -3,6 +3,7 @@ import Player from '../gameobjects/player';
 import Enemies from '../gameobjects/enemies';
 import MobilePlatforms from '../gameobjects/mobileplatforms';
 import Harvestable from '../gameobjects/harvestable';
+import HandlerBD from '../databse/handlerbd';
 
 export default class HandlerLevels extends Phaser.Scene {
     protected levelName: string;
@@ -92,7 +93,8 @@ export default class HandlerLevels extends Phaser.Scene {
 
     /** Metodo que crea el sonido de fondo */
     createSoundTrack(): void {
-        if(this.registry.get(Constants.REGISTER.MUSIC) == Constants.SETTINGS.SOUND_ON) {
+        let bd: HandlerBD = new HandlerBD();
+        if(bd.data.music) {
             // Carga de sonido y lo ejecuta con loop
             this.soundtrack = this.sound.add(Constants.SOUNDS.SOUNDTRACK+1, {
                 loop: true, volume: 0

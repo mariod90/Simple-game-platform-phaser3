@@ -7,7 +7,8 @@ const Constants = {
     ENDLEVEL: {
         SCORE: 'SCORE: ',
         WIN: 'YOU WIN!!',
-        GAMEOVER: 'GAME OVER!!'
+        GAMEOVER: 'GAME OVER!!',
+        BEST_SCORE: 'BEST SCORE!!'
     },
     MENU: {
         PLAY_GAME: 'PLAY GAME',
@@ -143,7 +144,10 @@ const Constants = {
         CREATEBY: 'GAMEDEV: MARIOD90\n\nWITH PHASER 3.50 AND TYPESCRIPT',
         ASSETS: 'SPRITES : PIXEL ADVENTURE BY PIXELFROG\n\n\nMUSIC : FREE SOUND CARTOON THEME LOOP\n\nBY DANIEL NORONHA',
         BACK: 'BACK',
-    }
+    },
+    DATABASE: {
+        NAME: 'MEGARANINJAv10'
+    },
 };
 
 export default Constants;
